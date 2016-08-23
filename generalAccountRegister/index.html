@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width, target-densitydpi=medium-dpi, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no" />
+		<title>通用账户-注册</title>
+		<!--<link rel="stylesheet" href="css/bootstrap.css?v=01291">-->
+		<link rel="stylesheet" href="css/register.css">
+		<!--城市选择-->
+		<link rel="stylesheet" type="text/css" href="cityChoose/dist/css/mobile-select-area.min.css">
+
+		<script type="text/javascript">
+			document.addEventListener('plusready', function() {
+				//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+
+			});
+		</script>
+
+	</head>
+
+	<body>
+		<header class="header">
+			<div class="nav cf">
+				<a class="gf_logo f_l" href="javascript:void(0);">通用账户</a>
+				<a class="icon_close f_r" href="javascript:void(0);">关闭</a>
+			</div>
+		</header>
+		<article class="info">
+			<h2>通用账户注册</h2>
+			<ul>
+				<li class="cf">
+					<div class="left">您是</div>
+					<div class="right">
+						<span class="radio_p on"><input class="radio" type="radio" name="zhuce" /></span>个人
+						<span class="radio_p"><input class="radio" type="radio" name="zhuce" /></span>企业
+					</div>
+				</li>
+				<li class="cf">
+					<div class="left">真实姓名</div>
+					<div class="right">
+						<input id="true_name" value="" placeholder="填写姓名">
+					</div>
+				</li>
+				<li class="cf">
+					<div class="left">国籍</div>
+					<div class="right">
+						<span class="radio_p on"><input class="radio" type="radio" name="guoji" /></span>中国大陆<br /><br />
+						<span class="radio_p"><input class="radio" type="radio" name="guoji" /></span>中国香港<br /><br />
+						<span class="radio_p"><input class="radio" type="radio" name="guoji" /></span>中国台湾
+					</div>
+				</li>
+				<li class="cf">
+					<div class="left">居住城市</div>
+					<div class="right">
+						<div class="mask"></div>
+						<input type="text" id="divselecty" placeholder="请选择所属区域" value="" />
+						<input name="" value="" id="inputselecty" type="hidden">
+					</div>
+				</li>
+				<li class="cf">
+					<div class="left">手机/邮箱</div>
+					<div class="right">
+						<input id="tel_mail" placeholder="">
+					</div>
+				</li>
+				<li class="cf">
+					<div class="left">验证码</div>
+					<div class="right yzm yzm_button">
+						<input type="text" name="" id="" value="" />
+						<a href="javascript:;">获取验证码</a>
+					</div>
+				</li>
+				<p>
+					<span class="checkbox_p"><input class="radio" type="checkbox" name="" /></span> 我已阅读并同意XX协议
+				</p>
+			</ul>
+			<div class="btn-1">
+				<button id="next_step">下一步</button>
+			</div>
+		</article>
+
+		<script src="js/jquery.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="cityChoose/dist/js/dialog.min.js"></script>
+		<script type="text/javascript" src="cityChoose/dist/js/mobile-select-area.min.js"></script>
+		<script type="text/javascript" src="cityChoose/dist/js/data_PC.js"></script>
+		<script type="text/javascript">
+			$(".radio_p").on("click", function() {
+				$(this).addClass("on").siblings().removeClass("on");
+			});
+			$(".checkbox_p").on("click", function() {
+				$(this).addClass("checkbox_on").siblings().removeClass("checkbox_on");
+			});
+			/*城市区域选择*/
+			var selectArea = new MobileSelectArea();
+			selectArea.init({
+				trigger: $('#divselecty'),
+				value: $('#inputselecty').val(),
+				data: getDataList().data
+				/*data: 'cityChoose/dist/data.json'*/
+			});
+			
+			$('#next_step').css('color','grey');
+			var  name_exp = /^([\u4e00-\u9fa5]+|([a-zA-Z]+\s?)+)$/;
+			var tel_exp = /^1[3|4|5|8][0-9]\d{4,8}$/;
+			var mail_exp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ;
+			$('#next_step').on('click', function(){
+				if(!name_exp.test($('#true_name').val())){
+					$(this).css('color','grey');
+					alert("请填写有效真实姓名！");
+					return;
+				}
+				if( (!tel_exp.test($('#tel_mail').val())) && (!mail_exp.test($('#tel_mail').val())) ){
+					$(this).css('color','grey');
+					alert("请填写有效的手机号或邮箱！");
+					return; 
+				}
+				/* if(){// 验证码验证
+					
+				}*/
+					window.location.href='index_2.html';
+				
+			});
+		</script>
+	</body>
+
+</html>
